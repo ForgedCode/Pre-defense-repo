@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCollItem } from "../app/features/items/itemSlice";
+import { getItemsByTag } from "../app/features/tags/tagSlice";
 import CommentSection from "../components/Comments/CommentSection";
 import Loader from "../components/Loader/Loader";
 import LikeToolbar from "../components/Toolbars/LikeToolbar";
@@ -20,7 +21,6 @@ const Item = () => {
 	useEffect(() => {
 		dispatch(getCollItem({ params }));
 	}, [dispatch, params]);
-	console.log(messages);
 	useEffect(() => {
 		if (messages && currentLocale === "ru") {
 			toast(Object.values(messages)[0]);
@@ -29,13 +29,11 @@ const Item = () => {
 		}
 	}, [messages, currentLocale, dispatch]);
 
-	if (!specificItem) {
-		return (
-			<div>
-				<p>Предмет не найден</p>
-			</div>
-		);
-	}
+	const tagItemsHandler = (e) => {
+		e.preventDefault();
+		const tag = e.target.innerText;
+		dispatch(getItemsByTag({ tag, navigate }));
+	};
 
 	return (
 		<div className='min-h-[calc(100vh-80px)] container m-auto px-4 lg:px-0 pt-8'>
@@ -65,6 +63,7 @@ const Item = () => {
 								<div className='flex gap-4 flex-wrap'>
 									{specificItem.tags?.map((tag, index) => (
 										<button
+											onClick={tagItemsHandler}
 											className='bg-orange-400 px-4 py-2 rounded-md tracking-tight font-semibold'
 											key={index}
 										>

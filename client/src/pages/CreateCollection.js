@@ -58,7 +58,8 @@ const CreateCollection = () => {
 		const img = e.target.files[0];
 		setImgToBase(img);
 	};
-	const submitHandler = async () => {
+	const submitHandler = async (e) => {
+		e.preventDefault();
 		const collData = new FormData();
 		collData.append("title", collForm.title);
 		collData.append("description", collForm.description);
@@ -79,10 +80,7 @@ const CreateCollection = () => {
 	return (
 		<div className='min-h-[calc(100vh-80px)] container m-auto px-4 lg:px-0 pt-8'>
 			{!isLoading ? (
-				<form
-					onSubmit={(e) => e.preventDefault()}
-					className='flex flex-col lg:w-3/5 px-6 py-4 rounded-md gap-5 dark:bg-darkModal'
-				>
+				<form className='flex flex-col lg:w-3/5 px-6 py-4 rounded-md gap-5 dark:bg-darkModal'>
 					<FormControl>
 						<InputLabel className='dark:text-light'>
 							<FormattedMessage id='collection.title' />

@@ -77,27 +77,24 @@ const EditCollection = () => {
 			});
 		};
 	};
-
 	const onImgChange = (e) => {
 		const img = e.target.files[0];
 		setImgToBase(img);
 	};
-
 	const cancelHandler = () => {
 		navigate(-1);
 		setOldData({});
 	};
-
-	const submitHandler = async () => {
+	const submitHandler = async (e) => {
+		e.preventDefault();
 		const updCollData = new FormData();
 		updCollData.append("title", oldData.title);
 		updCollData.append("description", oldData.description);
 		updCollData.append("topic", oldData.topic);
-		updCollData.append("imgPath", oldData.imgPath);
+		updCollData.append("imgPath", oldData.imgPath || "");
 		await dispatch(updateCollection({ updCollData, navigate, params }));
 		dispatch(clearMessages());
 	};
-
 	useEffect(() => {
 		if (messages && currentLocale === "ru") {
 			toast(Object.values(messages)[0]);
@@ -109,10 +106,7 @@ const EditCollection = () => {
 	return (
 		<div className='min-h-[calc(100vh-80px)] container m-auto px-4 lg:px-0 pt-8'>
 			{oldData && !isLoading ? (
-				<form
-					onSubmit={(e) => e.preventDefault()}
-					className='flex flex-col lg:w-3/5 px-6 py-4 rounded-md gap-5 dark:bg-darkModal'
-				>
+				<form className='flex flex-col lg:w-3/5 px-6 py-4 rounded-md gap-5 dark:bg-darkModal'>
 					<FormControl>
 						<InputLabel className='dark:text-light'>
 							<FormattedMessage id='collection.title' />

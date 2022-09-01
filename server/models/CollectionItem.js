@@ -7,6 +7,7 @@ const itemSchema = new Schema(
 		title: { type: String, required: true },
 		tags: [{ type: String }],
 		creator: { type: String },
+		author: { type: Types.ObjectId, ref: "User" },
 		collName: { type: String },
 		toCollection: { type: Types.ObjectId, ref: "Collection" },
 		likes: { type: Array, default: [] },

@@ -1,4 +1,7 @@
 import User from "../models/User.js";
+import Collection from "../models/Collection.js";
+import Item from "../models/CollectionItem.js";
+import Comment from "../models/Comment.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import validateRegisterInput from "../validations/register.js";
@@ -108,6 +111,9 @@ export const deleteUsers = async (req, res) => {
 				.status(400)
 				.json({ messageRU: "Выберите пользователя", messageEN: "Select user" });
 		}
+		await Comment.deleteMany({ author: { $in: id } });
+		await Item.deleteMany({ author: { $in: id } });
+		await Collection.deleteMany({ author: { $in: id } });
 		await User.deleteMany({ _id: { $in: id } });
 		return res.status(200).json({
 			messageRU: "Выбранные пользователи удалены",

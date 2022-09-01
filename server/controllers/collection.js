@@ -1,4 +1,6 @@
 import Collection from "../models/Collection.js";
+import Item from "../models/CollectionItem.js";
+import Comment from "../models/Comment.js";
 import User from "../models/User.js";
 import cloudinary from "../cloudinary/cloudinary.js";
 
@@ -110,7 +112,7 @@ export const editCollById = async (req, res) => {
 			const uploadedImg = await cloudinary.uploader.upload(req.body.imgPath, {
 				folder: "collection images",
 			});
-			const updatedImgColl = await Collection.findByIdAndUpdate(req.params.id, {
+			await Collection.findByIdAndUpdate(req.params.id, {
 				$set: { title, description, topic, imgUrl: uploadedImg.secure_url },
 			});
 			return res.status(200).json({
@@ -118,7 +120,7 @@ export const editCollById = async (req, res) => {
 				messageEN: "The collection has been updated",
 			});
 		} else {
-			const updatedColl = await Collection.findByIdAndUpdate(req.params.id, {
+			await Collection.findByIdAndUpdate(req.params.id, {
 				$set: { title, description, topic, imgUrl: "" },
 			});
 			return res.status(200).json({
@@ -136,15 +138,27 @@ export const editCollById = async (req, res) => {
 
 export const deleteCollById = async (req, res) => {
 	try {
-		const collection = await Collection.findByIdAndDelete(req.params.id);
+		const collection = await Collection.findById(req.params.id);
 		if (!collection)
 			return res.status(400).json({
 				messageRU: "Такой коллекции не существует",
 				messageEN: "There is no such collection",
 			});
+		await Promise.all(
+			collection.collectionItems.map(async (item) => {
+				const targetItem = await Item.findById(item._id);
+				await Promise.all(
+					targetItem.comments.map((i) => {
+						return Comment.findByIdAndDelete(i._id);
+					})
+				);
+				return Item.findByIdAndDelete(item._id);
+			})
+		);
 		await User.findByIdAndUpdate(collection.author, {
 			$pull: { collections: req.params.id },
 		});
+		await collection.deleteOne();
 		return res.status(200).json({
 			messageRU: "Коллекция успешно удалена",
 			messageEN: "You have succesfully deleted the collection",

@@ -10,6 +10,7 @@ const routes = {
 	CREATE_ITEM: "/collection/:id/createItem",
 	EDIT_ITEM: "/collection/editItem/:id",
 	ITEM: "/collection/item/:id",
+	TAG_RESULTS: "/tagResults",
 };
 
 export default routes;

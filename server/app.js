@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import multer from "multer";
+import bodyParser from "body-parser";
 import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
 import collectionRoutes from "./routes/collectionRoutes.js";
@@ -10,9 +12,16 @@ import commentRoutes from "./routes/commentRoutes.js";
 dotenv.config();
 
 const app = express();
+const upload = multer();
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: false,
+	})
+);
+app.use(upload.array());
+app.use(bodyParser.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(morgan("common"));
 

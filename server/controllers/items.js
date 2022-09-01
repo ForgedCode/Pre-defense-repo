@@ -21,6 +21,7 @@ export const createItem = async (req, res) => {
 		const newItem = new Item({
 			itemId: id,
 			creator: req.user.username,
+			author: req.user.id,
 			collName: collection.title,
 			title,
 			tags: selectedTags,
@@ -131,7 +132,7 @@ export const getCollItem = async (req, res) => {
 export const editCollItem = async (req, res) => {
 	try {
 		const { id, title, selectedTags } = req.body;
-		const updatedItem = await Item.findByIdAndUpdate(req.params.id, {
+		await Item.findByIdAndUpdate(req.params.id, {
 			$set: { itemId: id, title, tags: selectedTags },
 		});
 		return res.status(200).json({
@@ -163,6 +164,19 @@ export const likeCollItem = async (req, res) => {
 				messageEN: "Item liked",
 			});
 		}
+	} catch (err) {
+		return res.status(400).json({
+			messageRU: "Произошла ошибка, попробуйте снова",
+			messageEN: "Something went wrong, try again",
+		});
+	}
+};
+
+export const getItemsByTag = async (req, res) => {
+	try {
+		const { tag } = req.query;
+		const itemsByTag = await Item.find().where(tag).in("tags");
+		return res.status(200).json(itemsByTag);
 	} catch (err) {
 		return res.status(400).json({
 			messageRU: "Произошла ошибка, попробуйте снова",
