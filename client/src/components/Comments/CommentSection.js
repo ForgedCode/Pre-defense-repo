@@ -12,11 +12,11 @@ const CommentSection = () => {
 	const { isLogin } = useSelector((state) => state.auth);
 	const { comments } = useSelector((state) => state.comment);
 	useEffect(() => {
-		// const fetch = setInterval(() => {
-		// 	dispatch(getItemComments({ params }));
-		// }, 2000);
+		const fetch = setInterval(() => {
+			dispatch(getItemComments({ params }));
+		}, 2000);
 		dispatch(getItemComments({ params }));
-		// return () => clearInterval(fetch);
+		return () => clearInterval(fetch);
 	}, [dispatch, params]);
 
 	return (
