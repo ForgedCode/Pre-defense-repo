@@ -4,7 +4,7 @@ import Moment from "react-moment";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const ItemByTag = ({ item }) => {
+const ItemResults = ({ item }) => {
 	const { currentLocale } = useSelector((state) => state.locale);
 
 	return (
@@ -31,4 +31,4 @@ const ItemByTag = ({ item }) => {
 	);
 };
 
-export default ItemByTag;
+export default ItemResults;

@@ -22,6 +22,7 @@ import EditItem from "./pages/EditItem";
 import Item from "./pages/Item";
 import NotFound from "./pages/NotFound";
 import TagResults from "./pages/TagResults";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
 	const { messages, currentLocale } = useSelector((state) => state.locale);
@@ -59,6 +60,7 @@ function App() {
 					<Route path={routes.CREATE_ITEM} element={<CreateItem />} />
 					<Route path={routes.EDIT_ITEM} element={<EditItem />} />
 					<Route path={routes.TAG_RESULTS} element={<TagResults />} />
+					<Route path={routes.SEARCH_RESULTS} element={<SearchResults />} />
 					{user && user.isAdmin ? (
 						<Route path={routes.ADMIN} element={<Admin />} />
 					) : (

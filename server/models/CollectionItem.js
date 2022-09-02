@@ -23,4 +23,5 @@ const itemSchema = new Schema(
 	{ timestamps: true }
 );
 
+itemSchema.index({ "$**": "text" });
 export default model("Item", itemSchema);

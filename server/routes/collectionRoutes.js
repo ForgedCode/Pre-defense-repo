@@ -14,6 +14,7 @@ import {
 	getCollItem,
 	getCollItems,
 	getLatestItems,
+	getQueryItems,
 	likeCollItem,
 } from "../controllers/items.js";
 import checkIsAuth from "../middlewares/checkIsAuth.js";
@@ -23,6 +24,7 @@ router.post("/createCollection", checkIsAuth, createCollection);
 router.get("/getPersonalColl", checkIsAuth, getPersonalColl);
 router.get("/getLatestItems", getLatestItems);
 router.get("/getBiggestColls", getBiggestColls);
+router.get("/queryItem", getQueryItems);
 router.put("/editCollItem/:id", checkIsAuth, editCollItem);
 router.put("/likeItem/:id", checkIsAuth, likeCollItem);
 router.get("/getCollItem/:id", getCollItem);

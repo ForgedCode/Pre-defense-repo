@@ -17,9 +17,7 @@ export const register = createAsyncThunk(
 		try {
 			const res = await apiCall.post("/users/register", { ...form });
 			if (res.data) {
-				setTimeout(() => {
-					navigate(routes.LOGIN);
-				}, 1500);
+				navigate(routes.LOGIN);
 			}
 			return res.data;
 		} catch (err) {

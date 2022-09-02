@@ -1,5 +1,6 @@
 {
 	"nav.home": "Home",
+	"nav.goMain": "Go to Main Page.",
 	"nav.mycolls": "My Collections",
 	"nav.login": "Sign in",
 	"nav.logout": "Sign out",
@@ -64,5 +65,12 @@
 	"comments": "Comments",
 	"comment.add": "Add comment",
 	"username": "Username",
-	"like": "Like"
+	"like": "Like",
+	"app.notFound": "Page not found. :(",
+	"app.forbidden": "You are not allowed to come here. ;)",
+	"queryResults": "Search results for:",
+	"queryFoundSing": "item found",
+	"queryFoundPlur": "items found",
+	"tagResults": "Items by tag:",
+	"tagClouds": "Cloud of tags"
 }

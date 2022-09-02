@@ -17,7 +17,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
 	bodyParser.urlencoded({
-		extended: false,
+		extended: true,
 	})
 );
 app.use(upload.array());

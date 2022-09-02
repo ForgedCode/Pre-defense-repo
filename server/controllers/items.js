@@ -52,7 +52,7 @@ export const getCollItems = async (req, res) => {
 			})
 		);
 		if (!items) {
-			return;
+			return res.status(404);
 		}
 		return res.status(200).json(items);
 	} catch (err) {
@@ -175,8 +175,31 @@ export const likeCollItem = async (req, res) => {
 export const getItemsByTag = async (req, res) => {
 	try {
 		const { tag } = req.query;
-		const itemsByTag = await Item.find().where(tag).in("tags");
-		return res.status(200).json(itemsByTag);
+		const itemsByTag = await Item.find({ tags: { $in: tag } });
+		if (!itemsByTag) {
+			return res.status(404);
+		}
+		return res.status(200).json({ itemsByTag, tag, count: itemsByTag.length });
+	} catch (err) {
+		return res.status(400).json({
+			messageRU: "Произошла ошибка, попробуйте снова",
+			messageEN: "Something went wrong, try again",
+		});
+	}
+};
+
+export const getQueryItems = async (req, res) => {
+	try {
+		const { queryItem } = req.query;
+		const queryResults = await Item.find({
+			$text: { $search: queryItem },
+		});
+		if (!queryResults) {
+			return res.status(404);
+		}
+		return res
+			.status(200)
+			.json({ queryResults, count: queryResults.length, queryItem });
 	} catch (err) {
 		return res.status(400).json({
 			messageRU: "Произошла ошибка, попробуйте снова",

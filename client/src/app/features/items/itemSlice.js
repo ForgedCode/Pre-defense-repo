@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiCall from "../../../axios/apiCall";
+import routes from "../../../constants/routes";
 
 const initialState = {
 	specificItem: {},
 	collectionItems: [],
+	queryItems: [],
 	latestItems: [],
 	isLoading: false,
 	messages: {},
@@ -104,6 +106,21 @@ export const likeItem = createAsyncThunk(
 	}
 );
 
+export const getQueryItems = createAsyncThunk(
+	"item/query",
+	async ({ queryItem, navigate }, { rejectWithValue }) => {
+		try {
+			const res = await apiCall.get("/collection/queryItem", {
+				params: { queryItem },
+			});
+			navigate(routes.SEARCH_RESULTS);
+			return res.data;
+		} catch (err) {
+			return rejectWithValue(err.response);
+		}
+	}
+);
+
 const itemSlice = createSlice({
 	name: "item",
 	initialState,
@@ -187,6 +204,17 @@ const itemSlice = createSlice({
 			state.messages = action.payload;
 		},
 		[likeItem.rejected]: (state, action) => {
+			state.isLoading = false;
+			state.messages = action.payload.data;
+		},
+		[getQueryItems.pending]: (state) => {
+			state.isLoading = true;
+		},
+		[getQueryItems.fulfilled]: (state, action) => {
+			state.isLoading = false;
+			state.queryItems = action.payload;
+		},
+		[getQueryItems.rejected]: (state, action) => {
 			state.isLoading = false;
 			state.messages = action.payload.data;
 		},
