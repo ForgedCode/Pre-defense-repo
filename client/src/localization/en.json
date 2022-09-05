@@ -27,7 +27,7 @@
 	"table.delete": "Delete",
 	"table.block": "Block",
 	"table.unblock": "Unblock",
-	"table.makeAdmin": "Grand admin permission",
+	"table.makeAdmin": "Grant admin permission",
 	"table.makeUser": "Revoke admin permission",
 	"table.deleteSelf": "You have deleted yourself!",
 	"table.banSelf": "You have blocked yourself!",
