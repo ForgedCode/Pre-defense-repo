@@ -91,7 +91,6 @@ const EditCollection = () => {
 		updCollData.append("description", oldData.description);
 		updCollData.append("topic", oldData.topic);
 		updCollData.append("imgPath", oldData.imgPath || "");
-		updCollData.append("oldImgPath", oldData.imgUrl || "");
 		await dispatch(updateCollection({ updCollData, navigate, params }));
 		dispatch(clearMessages());
 	};

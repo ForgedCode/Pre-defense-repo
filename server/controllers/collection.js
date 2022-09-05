@@ -107,7 +107,7 @@ export const getBiggestColls = async (req, res) => {
 
 export const editCollById = async (req, res) => {
 	try {
-		const { title, description, topic, imgPath, oldImgPath } = req.body;
+		const { title, description, topic, imgPath } = req.body;
 		if (imgPath) {
 			const uploadedImg = await cloudinary.uploader.upload(imgPath, {
 				folder: "collection images",
@@ -121,7 +121,7 @@ export const editCollById = async (req, res) => {
 			});
 		} else {
 			await Collection.findByIdAndUpdate(req.params.id, {
-				$set: { title, description, topic, imgUrl: oldImgPath },
+				$set: { title, description, topic },
 			});
 			return res.status(200).json({
 				messageRU: "Коллекция успешно отредактирована",
