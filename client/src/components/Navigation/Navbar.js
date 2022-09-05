@@ -14,8 +14,12 @@ const Navbar = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [navOpen, setNavOpen] = useState(false);
+	const [menuOpen, setMenuOpen] = useState(false);
 	const navToggleHandler = () => {
 		setNavOpen(!navOpen);
+	};
+	const menuToggleHandler = () => {
+		setMenuOpen(!menuOpen);
 	};
 	const { isLogin, user } = useSelector((state) => state.auth);
 	const { isAdmin } = user ? user : false;
@@ -43,9 +47,13 @@ const Navbar = () => {
 				<nav
 					className={`${
 						navOpen ? "flex" : "hidden"
-					} lg:flex flex-col pt-6 lg:pt-0 lg:flex-row lg:justify-between lg:items-center lg:basis-3/6`}
+					} lg:flex relative flex-col pt-6 lg:pt-0 lg:flex-row lg:justify-between lg:items-center lg:basis-3/6`}
 				>
-					<div className='flex gap-6 justify-evenly md:order-2 md:mr-6 md:mt-5 lg:mt-0 lg:mr-0'>
+					<div
+						className={`flex flex-col items-center gap-6 justify-evenly md:flex-row md:order-2 md:mr-6 md:mt-5 lg:mt-0 lg:mr-0 lg:absolute ${
+							menuOpen ? "lg:flex-col" : "lg:hidden"
+						} lg:px-8 lg:py-4 lg:border lg:shadow-sm top-[56px] right-0 bg-light dark:bg-dark 2xl:flex 2xl:static 2xl:flex-row 2xl:p-0 2xl:border-none 2xl:shadow-none`}
+					>
 						{isLogin ? (
 							<>
 								<button
@@ -81,10 +89,19 @@ const Navbar = () => {
 								</Link>
 							</>
 						)}
-
 						<ThemeSwitcher />
 						<LocaleSwitcher />
 					</div>
+					<button
+						onClick={menuToggleHandler}
+						className='hidden lg:flex order-2 2xl:hidden items-center justify-center'
+					>
+						{menuOpen ? (
+							<Close className='scale-150' />
+						) : (
+							<MenuOpen className='scale-150' />
+						)}
+					</button>
 					<div className='mt-6 md:mt-0 font-semibold'>
 						<NavLinks />
 					</div>

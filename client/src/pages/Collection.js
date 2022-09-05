@@ -43,31 +43,33 @@ const Collection = () => {
 				<>
 					<CollectionToolbar user={user} coll={specificColl} />
 					<div className='flex flex-col min-h-[400px] w-full lg:flex-row lg:gap-8'>
-						<div className='flex flex-col lg:basis-1/6'>
-							<h2 className='text-2xl font-bold text-center mb-4 lg:text-left'>
-								{specificColl.title}
-							</h2>
-							<div className='flex items-center gap-4 text-xl mb-4'>
-								<span>
-									<FormattedMessage id='collection.topicName' />
-								</span>
-								<h3>{specificColl.topic}</h3>
-							</div>
-							<div className='flex items-center gap-4 text-md mb-2'>
-								<span>
-									<FormattedMessage id='collection.createdBy' />
-								</span>
-								<h3>{specificColl.creator}</h3>
-							</div>
-							<div className='flex items-center gap-2 text-sm mb-2'>
-								<span>
-									<FormattedMessage id='collection.createdAt' />
-								</span>
-								<Moment
-									locale={currentLocale === "ru" ? "ru" : "en"}
-									date={specificColl.createAt}
-									format='D MMM YYYY'
-								/>
+						<div className=' lg:basis-2/6 mb-8'>
+							<div className='flex flex-col bg-white p-4 shadow-sm dark:bg-darkModal'>
+								<h2 className='text-2xl font-bold text-center mb-4 lg:text-left'>
+									{specificColl.title}
+								</h2>
+								<div className='flex items-center gap-4 mb-2'>
+									<span>
+										<FormattedMessage id='collection.topicName' />
+									</span>
+									<h3>{specificColl.topic}</h3>
+								</div>
+								<div className='flex items-center gap-4 mb-2'>
+									<span>
+										<FormattedMessage id='collection.createdBy' />
+									</span>
+									<h3>{specificColl.creator}</h3>
+								</div>
+								<div className='flex items-center gap-2 mb-2'>
+									<span>
+										<FormattedMessage id='collection.createdAt' />
+									</span>
+									<Moment
+										locale={currentLocale === "ru" ? "ru" : "en"}
+										date={specificColl.createAt}
+										format='D MMM YYYY'
+									/>
+								</div>
 							</div>
 						</div>
 						<div className='h-[300px] mb-8 lg:basis-2/6 lg:-order-1'>
@@ -85,11 +87,13 @@ const Collection = () => {
 								/>
 							)}
 						</div>
-						<div className='lg:basis-3/6'>
-							<h3 className='text-xl mb-4'>
-								<FormattedMessage id='collection.description' />
-							</h3>
-							<div dangerouslySetInnerHTML={{ __html: htmlDesc }} />
+						<div className='lg:basis-2/6 '>
+							<div className='bg-white p-4 shadow-sm dark:bg-darkModal'>
+								<h3 className='text-2xl font-bold mb-4'>
+									<FormattedMessage id='collection.description' />
+								</h3>
+								<div dangerouslySetInnerHTML={{ __html: htmlDesc }} />
+							</div>
 						</div>
 					</div>
 					<ItemTable />

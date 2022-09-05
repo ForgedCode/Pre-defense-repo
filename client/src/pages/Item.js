@@ -6,9 +6,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getCollItem } from "../app/features/items/itemSlice";
 import { getItemsByTag } from "../app/features/tags/tagSlice";
+import CustomFields from "../components/Collections/CustomFields";
 import CommentSection from "../components/Comments/CommentSection";
 import Loader from "../components/Loader/Loader";
 import LikeToolbar from "../components/Toolbars/LikeToolbar";
+import localStorageKeys from "../constants/localStorageKeys";
 
 const Item = () => {
 	const { specificItem, isLoading, messages } = useSelector(
@@ -32,6 +34,7 @@ const Item = () => {
 	const tagItemsHandler = (e) => {
 		e.preventDefault();
 		const tag = e.target.innerText;
+		localStorage.setItem(localStorageKeys.TAG_RESULTS, JSON.stringify(tag));
 		dispatch(getItemsByTag({ tag, navigate }));
 	};
 
@@ -88,6 +91,7 @@ const Item = () => {
 							</h3>
 						</div>
 					</div>
+					<CustomFields item={specificItem} />
 					<LikeToolbar likes={specificItem.likes} />
 					<CommentSection />
 				</div>

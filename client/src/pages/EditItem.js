@@ -54,6 +54,10 @@ const EditItem = () => {
 		await dispatch(editCollItem({ params, oldData, navigate }));
 		dispatch(clearMessages());
 	};
+	const cancelHandler = (e) => {
+		e.preventDefault();
+		navigate(-1);
+	};
 	useEffect(() => {
 		if (messages && currentLocale === "ru") {
 			toast(Object.values(messages)[0]);
@@ -95,6 +99,7 @@ const EditItem = () => {
 				</FormControl>
 				<Autocomplete
 					multiple
+					className='dark:text-light'
 					id='tags'
 					disableClearable={oldData.selectedTags.length === 0}
 					filterOptions={filterOptions}
@@ -130,15 +135,24 @@ const EditItem = () => {
 						/>
 					)}
 				/>
-				<button
-					className='flex items-center justify-center w-full gap-2 bg-blue-500 mr-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-40'
-					onClick={submitHandler}
-					disabled={
-						!oldData.title || !oldData.id || oldData.selectedTags.length === 0
-					}
-				>
-					<FormattedMessage id='item.edit' />
-				</button>
+				<div className='flex items-center gap-5'>
+					<button
+						className='flex items-center justify-center gap-2 bg-blue-500 mr-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-40'
+						onClick={submitHandler}
+						disabled={
+							!oldData.title || !oldData.id || oldData.selectedTags.length === 0
+						}
+					>
+						<FormattedMessage id='item.edit' />
+					</button>
+					<button
+						type='button'
+						className='flex items-center gap-2 bg-red-500 mr-4 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
+						onClick={cancelHandler}
+					>
+						<FormattedMessage id='collection.cancel' />
+					</button>
+				</div>
 			</form>
 		</div>
 	);

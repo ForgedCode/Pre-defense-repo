@@ -3,8 +3,14 @@ const { Schema, model, Types } = mongoose;
 
 const userSchema = new Schema(
 	{
-		username: { type: String, required: true, unique: true },
-		email: { type: String, required: true, unique: true },
+		username: { type: String, required: true, unique: true, trim: true },
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+			trim: true,
+			lowercase: true,
+		},
 		password: { type: String, required: true },
 		isAdmin: { type: Boolean, default: false },
 		isBlocked: { type: Boolean, default: false },

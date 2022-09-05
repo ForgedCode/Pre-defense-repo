@@ -7,8 +7,26 @@
 body {
 	font-family: "Roboto", sans-serif;
 }
-
 .MuiDataGrid-root .MuiDataGrid-columnHeader:focus,
 .MuiDataGrid-root .MuiDataGrid-cell:focus {
 	outline: none !important;
+}
+.dark .MuiAutocomplete-root .MuiAutocomplete-tag {
+	background-color: #f6f6f7;
+}
+.dark .MuiAutocomplete-root .MuiInputBase-root {
+	color: #f6f6f7;
+}
+.dark .MuiAutocomplete-root .MuiAutocomplete-clearIndicator,
+.dark .MuiAutocomplete-root .MuiInputLabel-root {
+	color: #f6f6f7;
+}
+.dark .MuiAutocomplete-root .MuiInputLabel-root.Mui-focused {
+	color: #1976d2;
+}
+.dark .MuiDataGrid-root .MuiSvgIcon-root {
+	color: #f6f6f7;
+}
+.dark .MuiDataGrid-root .MuiToolbar-root {
+	color: #f6f6f7;
 }

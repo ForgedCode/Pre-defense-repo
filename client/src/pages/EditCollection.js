@@ -81,9 +81,9 @@ const EditCollection = () => {
 		const img = e.target.files[0];
 		setImgToBase(img);
 	};
-	const cancelHandler = () => {
+	const cancelHandler = (e) => {
+		e.preventDefault();
 		navigate(-1);
-		setOldData({});
 	};
 	const submitHandler = async (e) => {
 		e.preventDefault();
@@ -126,6 +126,7 @@ const EditCollection = () => {
 						</InputLabel>
 						<Select
 							id='topic'
+							className='dark:text-light'
 							value={oldData.topic}
 							onChange={onSelectChange}
 							label={<FormattedMessage id='collection.topic' />}
@@ -186,6 +187,7 @@ const EditCollection = () => {
 							<FormattedMessage id='collection.update' />
 						</button>
 						<button
+							type='button'
 							className='flex items-center gap-2 bg-red-500 mr-4 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'
 							onClick={cancelHandler}
 						>

@@ -207,3 +207,20 @@ export const getQueryItems = async (req, res) => {
 		});
 	}
 };
+
+export const addStringField = async (req, res) => {
+	try {
+		const { id: collId } = req.params;
+		const { title } = req.body;
+		const collItems = await Item.updateMany(
+			{ toCollection: collId },
+			{ $push: { customString: { title }, body: null } }
+		);
+		return res.status(200).json("OK");
+	} catch (err) {
+		return res.status(400).json({
+			messageRU: "Произошла ошибка, попробуйте снова",
+			messageEN: "Something went wrong, try again",
+		});
+	}
+};

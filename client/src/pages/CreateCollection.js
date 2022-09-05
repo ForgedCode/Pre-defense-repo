@@ -100,6 +100,7 @@ const CreateCollection = () => {
 						</InputLabel>
 						<Select
 							id='topic'
+							className='dark:text-light'
 							value={collForm.topic}
 							label={<FormattedMessage id='collection.topic' />}
 							onChange={onSelectChange}

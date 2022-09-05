@@ -8,6 +8,7 @@ import {
 	getPersonalColl,
 } from "../controllers/collection.js";
 import {
+	addStringField,
 	createItem,
 	deleteCollItem,
 	editCollItem,
@@ -25,6 +26,7 @@ router.get("/getPersonalColl", checkIsAuth, getPersonalColl);
 router.get("/getLatestItems", getLatestItems);
 router.get("/getBiggestColls", getBiggestColls);
 router.get("/queryItem", getQueryItems);
+router.post("/addStringField/:id", checkIsAuth, addStringField);
 router.put("/editCollItem/:id", checkIsAuth, editCollItem);
 router.put("/likeItem/:id", checkIsAuth, likeCollItem);
 router.get("/getCollItem/:id", getCollItem);

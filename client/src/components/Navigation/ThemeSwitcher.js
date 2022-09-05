@@ -4,7 +4,7 @@ import { LightMode, DarkMode } from "@mui/icons-material";
 const ThemeSwitcher = () => {
 	const [theme, themeSwitcher] = useThemeSwitcher();
 	return (
-		<button onClick={themeSwitcher}>
+		<button className='hover:rotate-90 duration-200' onClick={themeSwitcher}>
 			{theme ? (
 				<DarkMode className='text-lightLink scale-150' />
 			) : (

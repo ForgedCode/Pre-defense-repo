@@ -1,3 +1,4 @@
+import { Skeleton } from "@mui/material";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import Moment from "react-moment";
@@ -7,6 +8,9 @@ import { Link } from "react-router-dom";
 const ItemResults = ({ item }) => {
 	const { currentLocale } = useSelector((state) => state.locale);
 
+	if (!item) {
+		return <Skeleton height={100} />;
+	}
 	return (
 		<Link to={`/collection/item/${item._id}`}>
 			<div className='w-full bg-white dark:bg-darkModal  text-lg tracking-tight font-medium p-4 shadow-sm hover:shadow-lg dark:hover:bg-opacity-30 duration-200'>

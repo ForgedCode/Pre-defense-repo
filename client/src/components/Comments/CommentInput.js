@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addComment } from "../../app/features/comments/commentSlice";
+import { getItemComments } from "../../app/features/comments/commentSlice";
 
 const CommentInput = () => {
 	const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const CommentInput = () => {
 	};
 	const addCommentHandler = async () => {
 		await dispatch(addComment({ comment, params }));
+		dispatch(getItemComments({ params }));
 		setComment("");
 	};
 	return (

@@ -33,6 +33,18 @@ export const getItemsByTag = createAsyncThunk(
 	}
 );
 
+export const getSampleTags = createAsyncThunk(
+	"item/getSampleTags",
+	async (thunkAPI, { rejectWithValue }) => {
+		try {
+			const res = await apiCall.get("/tags/getSampleTags");
+			return res.data;
+		} catch (err) {
+			return rejectWithValue(err.response);
+		}
+	}
+);
+
 const tagSlice = createSlice({
 	name: "tag",
 	initialState,
@@ -56,6 +68,16 @@ const tagSlice = createSlice({
 			state.isLoading = false;
 		},
 		[getItemsByTag.rejected]: (state) => {
+			state.isLoading = false;
+		},
+		[getSampleTags.pending]: (state) => {
+			state.isLoading = true;
+		},
+		[getSampleTags.fulfilled]: (state, action) => {
+			state.tags = action.payload;
+			state.isLoading = false;
+		},
+		[getSampleTags.rejected]: (state) => {
 			state.isLoading = false;
 		},
 	},

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getQueryItems } from "../../app/features/items/itemSlice";
+import localStorageKeys from "../../constants/localStorageKeys";
 
 const SearchBar = () => {
 	const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const SearchBar = () => {
 	};
 	const searchHandler = async () => {
 		await dispatch(getQueryItems({ queryItem: query, navigate }));
+		localStorage.setItem(localStorageKeys.QUERY_RESULTS, JSON.stringify(query));
 		setQuery("");
 	};
 	return (

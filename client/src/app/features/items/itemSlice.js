@@ -121,6 +121,21 @@ export const getQueryItems = createAsyncThunk(
 	}
 );
 
+export const addStringField = createAsyncThunk(
+	"item/addString",
+	async ({ params, title }, { rejectWithValue }) => {
+		try {
+			const res = await apiCall.post(
+				`/collection/addStringField/${params.id}`,
+				{ title }
+			);
+			return res.data;
+		} catch (err) {
+			return rejectWithValue(err.response);
+		}
+	}
+);
+
 const itemSlice = createSlice({
 	name: "item",
 	initialState,
@@ -215,6 +230,17 @@ const itemSlice = createSlice({
 			state.queryItems = action.payload;
 		},
 		[getQueryItems.rejected]: (state, action) => {
+			state.isLoading = false;
+			state.messages = action.payload.data;
+		},
+		[addStringField.pending]: (state) => {
+			state.isLoading = true;
+		},
+		[addStringField.fulfilled]: (state, action) => {
+			state.isLoading = false;
+			state.messages = action.payload;
+		},
+		[addStringField.rejected]: (state, action) => {
 			state.isLoading = false;
 			state.messages = action.payload.data;
 		},

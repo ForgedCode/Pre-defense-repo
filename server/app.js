@@ -12,7 +12,9 @@ import commentRoutes from "./routes/commentRoutes.js";
 dotenv.config();
 
 const app = express();
-const upload = multer();
+const upload = multer({
+	limits: { fieldSize: 25 * 1024 * 1024, fileSize: 25 * 1024 * 1024 },
+});
 const port = process.env.PORT || 5000;
 
 app.use(
